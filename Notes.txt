@@ -1,0 +1,3 @@
+to be improved:
+the trigger timing for setup screen is very inacurate, need work on this
+gapless mode of Stims can display a minimum screen frames of 2, unable to display 1 frame only 
