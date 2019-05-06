@@ -8,6 +8,7 @@ for i=1:length(spotsR)
     if kbstate==0 %ESC is pressed
         break
     else
+        sendComment(['bipolar_spots_v3, contrast=' num2str(stim_contrast)],-1);
         StimSpot(param_screen,spotsR(i),flipSec,stim_contrast)
     end
 end

@@ -22,7 +22,12 @@ Screen('FrameOval',screen_win,intensity,CenterRectOnPoint(rect,xCen,yCen),thickn
 Screen('CopyWindow',screen_win,screen_win_off); % for gapless
 vbl = Screen('Flip', screen_win);
 io64(ttlObj,57600,1);
-intensity_IR_OR_flipSec=[stim_contrast,ringIR,ringOR,flipSec] % to display information to console
+%===
+% to display information to console
+intensity_IR_OR_flipSec=[stim_contrast,ringIR,ringOR,flipSec] 
+% to send comment to LabChart
+sendComment(['(auto) Annulus: r=(' num2str(ringIR) ',' num2str(ringOR) ')(um), contrast=' num2str(stim_contrast)],4)
+%===
 if exist('options','var') && length(options)>=2 && options(2)==1
     %=== gapless
     Screen('drawTexture',screen_win,screen_win_off)

@@ -20,13 +20,14 @@ vbl = Screen('Flip', screen_win);
 for i=1:length(spotsR)
     spotsDia=spotsDiaPix(i);
     Screen('FillOval', screen_win, screen_w ,[xCen-0.5*spotsDia yCen-0.5*spotsDia xCen+0.5*spotsDia yCen+0.5*spotsDia]);
-    io64(ttlObj,57600,0); ;
+    io64(ttlObj,57600,0);
     vbl = Screen('Flip', screen_win, vbl + (waitframes(i) - 0.5) * ifi); %
-    io64(ttlObj,57600,1); ;
+    io64(ttlObj,57600,1);
     Radius_Secs=[spotsR(i),flipSecs(i)]
+    sendComment(['(auto) Spot: r=' num2str(spotsR(i)) 'um, contrast=' num2str(1)],4)
 end
 Screen('Flip', screen_win, vbl + (waitframes(i+1) - 0.5) * ifi)
-io64(ttlObj,57600,0); ;
+io64(ttlObj,57600,0);
 % time=vbl-vbl
 
 

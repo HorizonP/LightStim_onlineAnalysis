@@ -31,6 +31,7 @@ for j=1:3 % create a unique TTL train to indicate screen with background color o
     io64(ttlObj,57600,0);
     WaitSecs(1e-3);
 end
+sendComment(['BG contrast: ' num2str(bg_contrast)],4);
 
 [screen_win_off,~]=Screen('OpenOffscreenWindow',screenNumber);
 

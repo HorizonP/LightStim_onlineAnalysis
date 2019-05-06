@@ -1,7 +1,7 @@
 function StimMultiSpots(param_screen,spotsMat,flipSecs,stim_contrast,options)
 % generate spot for precise duration, but not for precise onset timing
 % options(1): NoKeyWait, options(2): gapless
-tic
+
 struct2vars(param_screen)
 
 %=== units conversion
@@ -24,7 +24,7 @@ end
 
 Screen('FillOval', screen_win, intensity ,rects);
 Screen('CopyWindow',screen_win,screen_win_off);
-toc
+
 vbl = Screen('Flip', screen_win);
 io64(ttlObj,57600,1);
 

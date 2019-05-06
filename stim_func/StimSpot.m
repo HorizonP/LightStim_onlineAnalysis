@@ -27,6 +27,7 @@ io64(ttlObj,57600,1);
 intensity_spotR_flipSec=[stim_contrast,spotR,flipSecs]
 % to send comment to LabChart
 sendComment(['(auto) Spot: r=' num2str(spotR) 'um, contrast=' num2str(stim_contrast)],4)
+% parfeval(@sendComment,0,['(auto) Spot: r=' num2str(spotR) 'um, contrast=' num2str(stim_contrast)],4);
 %===
 
 if exist('options','var') && length(options)>=2 && options(2)==1
