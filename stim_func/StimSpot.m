@@ -21,8 +21,14 @@ Screen('FillOval', screen_win, intensity ,CenterRectOnPoint(rect,xCen,yCen));
 Screen('CopyWindow',screen_win,screen_win_off); % for gapless
 vbl = Screen('Flip', screen_win);
 io64(ttlObj,57600,1);
+
+%===
 % to display information to console
 intensity_spotR_flipSec=[stim_contrast,spotR,flipSecs]
+% to send comment to LabChart
+sendComment(['(auto) Spot: r=' num2str(spotR) 'um, contrast=' num2str(stim_contrast)],4)
+%===
+
 if exist('options','var') && length(options)>=2 && options(2)==1
     %=== gapless
     Screen('drawTexture',screen_win,screen_win_off)
