@@ -4,7 +4,7 @@ exit=false;
 stmp=GetSecs();
 while GetSecs()-stmp < gapTime
     [keyIsDown, ~, keyCode, ~]=KbCheck;
-    if keyIsDown==1 && strcmp(KbName(keyCode)=='esc')
+    if keyIsDown==1 && strcmp(KbName(keyCode),'esc')
         exit=true;
         break
     end
