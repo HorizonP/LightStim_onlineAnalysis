@@ -12,11 +12,11 @@ im=randi([0,1],mosaicNum)*intensity;
 aTexInd=Screen('MakeTexture',screen_win,im);
 Screen('DrawTexture',screen_win,aTexInd,[],ActualRect,[],0);
 Screen('Flip', screen_win);
-io64(ttlObj,57600,0); ;
+io64(ttlObj,57600,0);
 
 
-WaitSecs(0.2);KbWait;
+kbContinue;
 vbl = Screen('Flip', screen_win);
-io64(ttlObj,57600,1); ;
+io64(ttlObj,57600,1);
 
 end

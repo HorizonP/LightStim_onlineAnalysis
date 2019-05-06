@@ -12,9 +12,8 @@ intensity=screen_w*stim_contrast;
 
 %=== wait for key
 if exist('options','var') && ~isempty(options) && options(1)==1
-    WaitSecs(0.2)
-    [~, keyCode, ~]=KbWait;
-    if keyCode(41)==1 || keyCode(27)==1 %ESC is pressed
+    kbstate=kbContinue;
+    if kbstate==0
         return
     end
 end
@@ -23,7 +22,7 @@ end
 Screen('FillRect', screen_win, intensity ,CenterRectOnPoint(rect,xCen+posX,yCen+posY));
 Screen('CopyWindow',screen_win,screen_win_off); % for gapless
 vbl = Screen('Flip', screen_win);
-io64(ttlObj,57600,1); ;
+io64(ttlObj,57600,1);
 % to display information to console
 intensity_length_height_posX_posY_flipSec=[stim_contrast,length_height_posX_posY,flipSecs]
 if exist('options','var') && length(options)>=2 && options(2)==1
@@ -33,5 +32,5 @@ if exist('options','var') && length(options)>=2 && options(2)==1
 else
     Screen('Flip', screen_win, vbl + (waitframe - 0.5) * ifi); %
 end
-io64(ttlObj,57600,0); ;
+io64(ttlObj,57600,0);
 end

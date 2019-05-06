@@ -42,9 +42,8 @@ flipSecs= [3 2];
 
 
 %===============Routine====================================================
-WaitSecs(0.15);
-[~, keyCode, ~]=KbWait;
-if keyCode(41)~=1 && keyCode(27)~=1 %ESC is not pressed
+state=kbContinue;
+if state~=0 %ESC is not pressed
     for i=1:length(flipSecs)
         StimAnnulus(param_screen,ringsIR(i),ringsOR(i),flipSecs(i),stim_contrast,[0,1])
     end

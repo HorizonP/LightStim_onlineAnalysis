@@ -41,7 +41,7 @@ if length(flipSecs)==1
     flipSecs=flipSecs*ones(size(spotsR));
 end
 spotsDiaPix=spotsR*2*umTopix; % in pixel
-io64(ttlObj,57600,0); ;
+io64(ttlObj,57600,0);
 
 % Measure the vertical refresh rate of the monitor
 ifi = Screen('GetFlipInterval', window);
@@ -53,20 +53,23 @@ Priority(topPriorityLevel);
 % to the nearest frame
 waitframes = [1 round(flipSecs / ifi)];
 
-[secs, keyCode, deltaSecs]=KbWait;
+kbstate=kbContinue;
+if kbstate==0
+    return
+end
 vbl = Screen('Flip', window);
 for i=1:length(spotsDiaPix)         
     spotsDia=spotsDiaPix(i);
     Screen('FillOval', window, white ,[xCen-0.5*spotsDia yCen-0.5*spotsDia xCen+0.5*spotsDia yCen+0.5*spotsDia]);
-    io64(ttlObj,57600,0); ;
+    io64(ttlObj,57600,0);
     vbl = Screen('Flip', window, vbl + (waitframes(i) - 0.5) * ifi); %
-    io64(ttlObj,57600,1); ;
+    io64(ttlObj,57600,1);
     Radius_Secs=[spotsR(i),flipSecs(i)]
 end
 % io64(ttlObj,57600,0); ;
 Screen('Flip', window, vbl + (waitframes(i+1) - 0.5) * ifi)
 % io64(ttlObj,57600,1); ;
-io64(ttlObj,57600,0); ;
+io64(ttlObj,57600,0);
 % time=vbl-vbl
 sca;
 

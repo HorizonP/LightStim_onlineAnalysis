@@ -29,8 +29,8 @@ if length(flipSecs)==1
 end
 
 for i=1:length(flipSecs)
-    [~, keyCode, ~]=KbWait;
-    if keyCode(41)==1 || keyCode(27)==1 %ESC is pressed
+    kbstate=kbContinue;
+    if kbstate==0
         break
     else
         StimAnnulus(param_screen,ringsIR(i),ringsOR(i),flipSecs(i),stim_contrast)

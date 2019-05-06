@@ -19,9 +19,8 @@ intensity=screen_w*stim_contrasts;
 
 %=== wait for key
 if exist('options','var') && ~isempty(options) && options(1)==1
-    WaitSecs(0.2)
-    [~, keyCode, ~]=KbWait;
-    if keyCode(41)==1 || keyCode(27)==1 %ESC is pressed
+    kbstate=kbContinue;
+    if kbstate==0
         return
     end
 end
@@ -36,5 +35,5 @@ Screen('Flip', screen_win, vbl + (waitframe - 0.5) * ifi);
 lptwrite(57600, TTL(i));
 end
 Screen('Flip', screen_win);
-io64(ttlObj,57600,0); ;
+io64(ttlObj,57600,0);
 end

@@ -11,8 +11,8 @@ spotsR = 50;
 
 WaitSecs(0.15);
 for i=1:length(stim_contrast)         
-    [~, keyCode, ~]=KbWait;
-    if keyCode(41)==1 || keyCode(27)==1 %ESC is pressed
+    kbstate=kbContinue;
+    if kbstate==0 %ESC is pressed
         break
     else
         StimSpot(param_screen,spotsR,flipSecs,stim_contrast(i))
