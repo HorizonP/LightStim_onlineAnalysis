@@ -9,7 +9,7 @@ white = WhiteIndex(screenNumber);
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, 0); % black window
 ifi = Screen('GetFlipInterval', window);
 umTopix=0.3484;
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 
@@ -38,7 +38,7 @@ mosaicMat=zeros([mosaicNum times],'uint8');
 frames_grey = round(t_grey / ifi);
 Screen('FillRect',window,white/2,ActualRect);
 vbl = Screen('Flip', window);
-lptwrite(57600, 1);
+io64(ttlObj,57600,1); ;
 
 for i=1:mosaicNum(1)
     for j=1:mosaicNum(2)
@@ -47,7 +47,7 @@ for i=1:mosaicNum(1)
 end
 
 vbl = Screen('Flip', window, vbl + (frames_grey - 0.5) * ifi);
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 vbl0=vbl;
 
 logt=[];
@@ -58,16 +58,16 @@ while (~KbCheck)&&(i<=times)
     im=mosaicMat(:,:,i);
     aTexInd=Screen('MakeTexture',window,im);
     Screen('DrawTexture',window,aTexInd,[],ActualRect,[],0);
-    lptwrite(57600, 0);
+    io64(ttlObj,57600,0); ;
     vbl = Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);
-    lptwrite(57600, 1);
+    io64(ttlObj,57600,1); ;
     logt=[logt vbl];
     i=i+1;
 end
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 Screen('FillRect',window,white/2,ActualRect);
 Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);
-lptwrite(57600, 1);
+io64(ttlObj,57600,1); ;
 
 logt=logt-vbl0;
 % aver=squeeze(sum(sum(mosaicMat/255,2),1))'/prod(mosaicNum); %per frame
@@ -75,7 +75,7 @@ logt=logt-vbl0;
 
 Screen('Flip', window, vbl + (frames_grey - 0.5) * ifi);
 sca;
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 
 
 % subplot(2,1,1);plot(logt,logt-[0 logt(1:end-1)]);

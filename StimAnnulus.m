@@ -22,7 +22,7 @@ end
 Screen('FrameOval',screen_win,intensity,CenterRectOnPoint(rect,xCen,yCen),thickness);
 Screen('CopyWindow',screen_win,screen_win_off); % for gapless
 vbl = Screen('Flip', screen_win);
-lptwrite(57600, 1);
+io64(ttlObj,57600,1); ;
 intensity_IR_OR_flipSec=[stim_contrast,ringIR,ringOR,flipSec] % to display information to console
 if exist('options','var') && length(options)>=2 && options(2)==1
     %=== gapless
@@ -31,5 +31,5 @@ if exist('options','var') && length(options)>=2 && options(2)==1
 else
     Screen('Flip', screen_win, vbl + (waitframe - 0.5) * ifi); %
 end
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 end

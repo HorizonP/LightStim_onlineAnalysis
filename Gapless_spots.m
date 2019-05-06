@@ -41,7 +41,7 @@ if length(flipSecs)==1
     flipSecs=flipSecs*ones(size(spotsR));
 end
 spotsDiaPix=spotsR*2*umTopix; % in pixel
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 
 % Measure the vertical refresh rate of the monitor
 ifi = Screen('GetFlipInterval', window);
@@ -58,15 +58,15 @@ vbl = Screen('Flip', window);
 for i=1:length(spotsDiaPix)         
     spotsDia=spotsDiaPix(i);
     Screen('FillOval', window, white ,[xCen-0.5*spotsDia yCen-0.5*spotsDia xCen+0.5*spotsDia yCen+0.5*spotsDia]);
-    lptwrite(57600, 0);
+    io64(ttlObj,57600,0); ;
     vbl = Screen('Flip', window, vbl + (waitframes(i) - 0.5) * ifi); %
-    lptwrite(57600, 1);
+    io64(ttlObj,57600,1); ;
     Radius_Secs=[spotsR(i),flipSecs(i)]
 end
-% lptwrite(57600, 0);
+% io64(ttlObj,57600,0); ;
 Screen('Flip', window, vbl + (waitframes(i+1) - 0.5) * ifi)
-% lptwrite(57600, 1);
-lptwrite(57600, 0);
+% io64(ttlObj,57600,1); ;
+io64(ttlObj,57600,0); ;
 % time=vbl-vbl
 sca;
 

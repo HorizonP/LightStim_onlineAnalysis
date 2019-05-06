@@ -21,13 +21,13 @@ vbl = Screen('Flip', screen_win);
 for i=1:length(spotsR)
     spotsDia=spotsDiaPix(i);
     Screen('FillOval', screen_win, screen_w ,[xCen-0.5*spotsDia yCen-0.5*spotsDia xCen+0.5*spotsDia yCen+0.5*spotsDia]);
-    lptwrite(57600, 0);
+    io64(ttlObj,57600,0); ;
     vbl = Screen('Flip', screen_win, vbl + (waitframes(i) - 0.5) * ifi); %
-    lptwrite(57600, 1);
+    io64(ttlObj,57600,1); ;
     Radius_Secs=[spotsR(i),flipSecs(i)]
 end
 Screen('Flip', screen_win, vbl + (waitframes(i+1) - 0.5) * ifi)
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 % time=vbl-vbl
 
 

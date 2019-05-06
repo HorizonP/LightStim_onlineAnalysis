@@ -30,11 +30,11 @@ end
 
 vbl = Screen('Flip', screen_win);
 for i=1:length(ti)
-% lptwrite(57600, 0);
+% io64(ttlObj,57600,0); ;
 Screen('FillOval', screen_win, intensity(i) ,CenterRectOnPoint(rect,xCen,yCen));
 Screen('Flip', screen_win, vbl + (waitframe - 0.5) * ifi);
 lptwrite(57600, TTL(i));
 end
 Screen('Flip', screen_win);
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 end

@@ -23,7 +23,7 @@ end
 Screen('FillRect', screen_win, intensity ,CenterRectOnPoint(rect,xCen+posX,yCen+posY));
 Screen('CopyWindow',screen_win,screen_win_off); % for gapless
 vbl = Screen('Flip', screen_win);
-lptwrite(57600, 1);
+io64(ttlObj,57600,1); ;
 % to display information to console
 intensity_length_height_posX_posY_flipSec=[stim_contrast,length_height_posX_posY,flipSecs]
 if exist('options','var') && length(options)>=2 && options(2)==1
@@ -33,5 +33,5 @@ if exist('options','var') && length(options)>=2 && options(2)==1
 else
     Screen('Flip', screen_win, vbl + (waitframe - 0.5) * ifi); %
 end
-lptwrite(57600, 0);
+io64(ttlObj,57600,0); ;
 end
