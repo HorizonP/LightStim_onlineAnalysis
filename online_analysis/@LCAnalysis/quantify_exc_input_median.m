@@ -1,0 +1,38 @@
+function [on_peak,off_peak,on_peak_t,off_peak_t] = quantify_exc_input_median(obj)
+    % quantify excitatory input by finding the maximum of
+    % movmedian-filtered(2000 pts) chan2 immediately after onset and offset
+    % of stimulus
+    % depolarizing input is positive
+    
+    % using moving-median filtered data
+    trace=movmedian(obj.chan2,2000);
+    
+    % calculate the offset base for each stimulus using -80ms~20ms time
+    % window arround onset TTL
+    base_ind=obj.ascendT'+(-0.08*obj.tickrate:0.02*obj.tickrate); 
+    base=mean(trace(base_ind),2);
+    
+    % calculate additional offset base for OFF response using ON baseline:
+    % the mean of -100ms~20ms time window arround each stimulus offset
+    baseoff_ind=obj.descendT'+(-0.1*obj.tickrate:0.02*obj.tickrate);
+    baseoff=mean(trace(baseoff_ind),2);
+    
+    % find out the local maximum of absolute value of 0~300ms after onset TTL,
+    % using the non-absolute value of that maximum as ON peak, negative
+    % current is depolarizing thus is positive in this quantification
+    on_ind=obj.ascendT'+(0:0.3*obj.tickrate); % this is a 2D matrix
+    on_depolar=(-trace(on_ind)+base); % reversed the sign
+    [~,I]=max(abs(on_depolar)'); %#ok<UDIM>
+    on_peak=on_depolar(sub2ind(size(on_depolar),1:length(I),I));
+    on_peak_t=I/obj.tickrate; % relative to stimulus onset
+    % figure;plot(on_peak_t,on_peak)
+    
+    % similar to above
+    off_ind=obj.descendT'+(0:0.3*obj.tickrate);
+    off_depolar=(-trace(off_ind)+baseoff); % reversed the sign
+    [~,I]=max(abs(off_depolar)'); %#ok<UDIM>
+    off_peak=off_depolar(sub2ind(size(off_depolar),1:length(I),I));
+    off_peak_t=I/obj.tickrate; % relative to stimulus offset
+    % figure;plot(off_peak_t,off_peak)
+
+end

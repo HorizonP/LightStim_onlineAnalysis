@@ -11,7 +11,7 @@ if not(isempty(gLCDoc)) & gLCDoc.isinterface & not(isempty(gLCDoc.eventlisteners
 end
 
 gLCDoc = doc;
-
+gChans = [1,4];
 gLCDoc.registerevent({
     'OnStartSamplingBlock' LCCallBacks('OnBlockStart'); 
     'OnNewSamples' LCCallBacks('OnNewSamples');
