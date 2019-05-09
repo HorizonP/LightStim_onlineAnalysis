@@ -1,5 +1,6 @@
-function StimRectangle(param_screen,length_height_posX_posY,flipSecs,stim_contrast,options)
+function StimRectangle(length_height_posX_posY,flipSecs,stim_contrast,options)
 % generate Rectangle for precise duration, but not for precise onset timing
+global param_screen
 struct2vars(param_screen);
 
 l_h=length_height_posX_posY(1:2)*umTopix;

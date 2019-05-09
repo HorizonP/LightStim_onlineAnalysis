@@ -20,7 +20,7 @@ WaitSecs(0.15);
 exit=false;
 for j=1:repeatN
     for i=1:length(spotsR)         
-        StimSpot(param_screen,spotsR(i),flipSecs,stim_contrast);
+        StimSpot(spotsR(i),flipSecs,stim_contrast);
         exit=GapTime(gapTime);
         if exit
             break

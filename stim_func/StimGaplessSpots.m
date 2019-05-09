@@ -1,5 +1,5 @@
-function StimGaplessSpots(param_screen,spotsR,flipSecs,options)
-
+function StimGaplessSpots(spotsR,flipSecs,options)
+global param_screen
 struct2vars(param_screen)
 if length(flipSecs)==1
     flipSecs=flipSecs*ones(size(spotsR));

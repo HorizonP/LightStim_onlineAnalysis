@@ -1,4 +1,6 @@
-function param_screen=setup_screen(bg_contrast)
+function setup_screen(bg_contrast)
+global param_screen
+
 sca;
 Screen('Preference', 'SkipSyncTests', 2); % to avoid sync failure error
 Screen('Preference', 'VisualDebuglevel', 3); 
@@ -8,6 +10,7 @@ screenNumber = 1;
 
 screen_w = WhiteIndex(screenNumber);
 screen_b = BlackIndex(screenNumber);
+
 %=============== screen background, pixel size, and center position
 background=screen_w*bg_contrast;
 umTopix=ret_umTopix;
@@ -19,7 +22,7 @@ if stat
     error('Error occured in initializing TTL communication')
 end
 %===============
-WaitSecs(1e-4); % to load the mex file of waitsecs
+WaitSecs(0); % to load the mex file of waitsecs
 
 io64(ttlObj,57600,0); 
 [screen_win, ~] = PsychImaging('OpenWindow', screenNumber, background);
@@ -40,7 +43,6 @@ topPriorityLevel = MaxPriority(screen_win);
 Priority(topPriorityLevel);
 ifi = Screen('GetFlipInterval', screen_win);
 
-param_screen=struct();
 
 param_screen.ttlObj=ttlObj;
 param_screen.screen_w=screen_w;

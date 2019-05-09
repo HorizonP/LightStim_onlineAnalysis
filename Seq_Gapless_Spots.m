@@ -29,7 +29,7 @@ end
 state=kbContinue;
 if state~=0 %ESC is not pressed
     for i=1:length(flipSecs)
-        StimSpot(param_screen,spotsR(i),flipSecs(i),stim_contrast,[0,1])
+        StimSpot(spotsR(i),flipSecs(i),stim_contrast,[0,1])
     end
     Screen('flip',param_screen.screen_win)
 end

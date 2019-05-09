@@ -45,7 +45,7 @@ flipSecs= [3 2];
 state=kbContinue;
 if state~=0 %ESC is not pressed
     for i=1:length(flipSecs)
-        StimAnnulus(param_screen,ringsIR(i),ringsOR(i),flipSecs(i),stim_contrast,[0,1])
+        StimAnnulus(ringsIR(i),ringsOR(i),flipSecs(i),stim_contrast,[0,1])
     end
     Screen('flip',param_screen.screen_win)
 end

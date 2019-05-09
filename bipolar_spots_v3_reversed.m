@@ -16,7 +16,7 @@ for i=1:length(spotsR)
         break
     else
         
-        StimSpot(param_screen,spotsR(i),flipSec,stim_contrast)
+        StimSpot(spotsR(i),flipSec,stim_contrast)
         
     end
 end

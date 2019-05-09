@@ -4,5 +4,6 @@ addpath('.\stim_func')
 
 global LCAcoll
 LCAcoll=LCAnalysis.empty();
+global x_axis % for storing the default x_axis related to the recent light stimuli
 
-global x_axis
+global param_screen

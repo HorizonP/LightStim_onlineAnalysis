@@ -1,5 +1,6 @@
-function StimSineModulatedSpot(param_screen,spotR,flipSec,freq,options)
+function StimSineModulatedSpot(spotR,flipSec,freq,options)
 
+global param_screen
 struct2vars(param_screen)
 
 frames=round(flipSec/ifi);

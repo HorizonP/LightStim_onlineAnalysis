@@ -18,7 +18,7 @@ WaitSecs(0.15);
 exit=false;
 for j=1:repeatN
     for i=1:length(spotsR)         
-        StimGaplessSpots(param_screen,spotsR,flipSecs,1)
+        StimGaplessSpots(spotsR,flipSecs,1)
         exit=GapTime(gapTime);
         if exit
             break

@@ -16,7 +16,7 @@ WaitSecs(0.15);
 exit=false;
 for j=1:repeatN
     for i=1:length(ringsOR)         
-        StimAnnulus(param_screen,ringsIR(i),ringsOR(i),flipSecs,stim_contrast);
+        StimAnnulus(ringsIR(i),ringsOR(i),flipSecs,stim_contrast);
         exit=GapTime(gapTime);
         if exit
             break

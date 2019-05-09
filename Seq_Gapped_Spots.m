@@ -36,7 +36,7 @@ for i=1:length(spotsR)
     if kbstate==0 %ESC is pressed
         break
     else
-        StimSpot(param_screen,spotsR(i),flipSecs(i),stim_contrast)
+        StimSpot(spotsR(i),flipSecs(i),stim_contrast)
     end
 end
 

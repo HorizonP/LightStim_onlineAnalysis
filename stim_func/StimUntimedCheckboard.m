@@ -1,6 +1,7 @@
-function StimUntimedCheckboard(param_screen,mosaicSzInReal,stim_contrast)
-
+function StimUntimedCheckboard(mosaicSzInReal,stim_contrast)
+global param_screen
 struct2vars(param_screen)
+
 r=150;%pix
 ActualRect=[xCen-r,yCen-r,xCen+r,yCen+r];
 intensity=screen_w*stim_contrast;

@@ -1,6 +1,7 @@
 %% add current LabChart selection to data collection LCAcoll
 LCAcoll(length(LCAcoll)+1)=LCAnalysis;
 LCAcoll(end)
+% x_axis would be wrong if the selection is not most recent stimuli tested
 %% single data x-y plot
 n=length(LCAcoll)
 

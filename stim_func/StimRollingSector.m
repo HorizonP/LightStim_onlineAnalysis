@@ -1,7 +1,8 @@
-function StimRollingSector(param_screen,Ang,ir,or,totalT,direction)
+function StimRollingSector(Ang,ir,or,totalT,direction)
 % display a sector(Ang,ir,or) rotate 'direction'ally 360 degree within 'totalT' time
 
 %=== setup params
+global param_screen
 struct2vars(param_screen)
 
 %=== units conversion

@@ -33,7 +33,7 @@ for i=1:length(flipSecs)
     if kbstate==0
         break
     else
-        StimAnnulus(param_screen,ringsIR(i),ringsOR(i),flipSecs(i),stim_contrast)
+        StimAnnulus(ringsIR(i),ringsOR(i),flipSecs(i),stim_contrast)
     end
 end
 

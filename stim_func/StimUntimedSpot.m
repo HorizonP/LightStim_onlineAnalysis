@@ -1,5 +1,5 @@
-function StimUntimedSpot(param_screen,spotR,stim_contrast)
-
+function StimUntimedSpot(spotR,stim_contrast)
+global param_screen
 struct2vars(param_screen)
 
 spotDiaPix=spotR*2*umTopix;

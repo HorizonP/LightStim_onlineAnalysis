@@ -1,7 +1,8 @@
-function StimAnnulus(param_screen,ringIR,ringOR,flipSec,stim_contrast,options)
+function StimAnnulus(ringIR,ringOR,flipSec,stim_contrast,options)
 % generate spot for precise duration, but not for precise onset timing
 % options(1): NoKeyWait, options(2): gapless
 
+global param_screen
 struct2vars(param_screen)
 
 outerDia=ringOR*2*umTopix;

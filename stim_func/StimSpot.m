@@ -1,6 +1,6 @@
-function StimSpot(param_screen,spotR,flipSecs,stim_contrast,options)
+function StimSpot(spotR,flipSecs,stim_contrast,options)
 % generate spot for precise duration, but not for precise onset timing
-
+global param_screen
 struct2vars(param_screen)
 
 spotDiaPix=spotR*2*umTopix;
