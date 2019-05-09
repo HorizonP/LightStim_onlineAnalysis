@@ -25,11 +25,11 @@ if exist('options','var') && ~isempty(options) && options(1)==1
     end
 end
 %===
-
-
+sendComment(['SineModulatedSpot, spotR=' num2str(spotR) ', freq=' num2str(freq)],4);
+sendComment('TTL represent peak light intensity, initial frame contrast=0.5',4);
 vbl = Screen('Flip', screen_win);
 for i=1:length(ti)
-% io64(ttlObj,57600,0); ;
+% io64(ttlObj,57600,0);
 Screen('FillOval', screen_win, intensity(i) ,CenterRectOnPoint(rect,xCen,yCen));
 Screen('Flip', screen_win, vbl + (waitframe - 0.5) * ifi);
 io64(ttlObj,57600, TTL(i));
