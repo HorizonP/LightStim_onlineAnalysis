@@ -10,6 +10,7 @@ classdef LCAnalysis < handle
         Reschan % data of response, default is the first column of selectedData
         TTLchan % data of TTL channel
         x_axis % the x axis for x-y plot
+        analysis_res % store the y data for x-y plot
 
         low_pass % params of filter, will set by 'apply_filter' and 'restore_filter', if empty suggests not done yet
         corr_bl_method % the method used for baseline correction (see 'corr_bl'), if empty suggests not done yet
@@ -55,7 +56,6 @@ classdef LCAnalysis < handle
             % check if tickrate is the same
             blocks=LCDoc_h.SelectionStartRecord : LCDoc_h.SelectionEndRecord;
             lcTick=@LCDoc_h.GetRecordSecsPerTick;
-            arrayfun(lcTick,blocks)
             assert(length(unique(arrayfun(lcTick,blocks)))==1,'tickrate for each block is different')
             
             obj.tickrate=round(1/lcTick(LCDoc_h.SelectionEndRecord)); %$ assign tickrate
@@ -83,6 +83,11 @@ classdef LCAnalysis < handle
 %             end
             obj.Reschan=obj.selectedData(1,:);
             obj.TTLchan=obj.selectedData(obj.selectedChans==TTL_chan_number,:); %$
+            
+            global x_axis
+            if ~isempty(x_axis)
+                obj.x_axis=x_axis;
+            end
 
         end
 

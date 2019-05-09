@@ -6,6 +6,6 @@ if isempty(gLCApp)
     gLCApp = actxGetRunningServer('ADIChart.Application');
 end
 d = gLCApp.ActiveDocument;
-if not(isempty(d))
-    d.Name  %display the document's name
+% if not(isempty(d))
+%     d.Name  %display the document's name
 end

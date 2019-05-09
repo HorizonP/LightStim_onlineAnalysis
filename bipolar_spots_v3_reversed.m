@@ -1,5 +1,10 @@
 spotsR=[12.5 25 50 100 150 300 600]; % in um, not pixel
 spotsR=fliplr(spotsR)
+
+% for online data analysis
+global x_axis
+x_axis=spotsR;
+
 stim_contrast=1;
 flipSec = 3;
 

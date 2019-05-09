@@ -4,7 +4,7 @@ Screen('Preference', 'SkipSyncTests', 2); % to avoid sync failure error
 Screen('Preference', 'VisualDebuglevel', 3); 
 % screens = Screen('Screens');
 % screenNumber = max(screens);
-screenNumber = 2;
+screenNumber = 1;
 
 screen_w = WhiteIndex(screenNumber);
 screen_b = BlackIndex(screenNumber);

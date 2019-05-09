@@ -32,7 +32,7 @@ for i=1:length(ti)
 % io64(ttlObj,57600,0); ;
 Screen('FillOval', screen_win, intensity(i) ,CenterRectOnPoint(rect,xCen,yCen));
 Screen('Flip', screen_win, vbl + (waitframe - 0.5) * ifi);
-lptwrite(57600, TTL(i));
+io64(ttlObj,57600, TTL(i));
 end
 Screen('Flip', screen_win);
 io64(ttlObj,57600,0);
