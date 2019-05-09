@@ -39,4 +39,4 @@ end
 
 %save workspace to log folder
 [~,scriptName,~]=fileparts(mfilename('fullpath'));
-% save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']));
+save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'ringsIR','ringsOR','flipSecs','stim_contrast');
