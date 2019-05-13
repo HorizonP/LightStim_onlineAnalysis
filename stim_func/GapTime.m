@@ -3,8 +3,11 @@ function exit=GapTime(gapTime)
 exit=false;
 stmp=GetSecs();
 while GetSecs()-stmp < gapTime
-    [keyIsDown, ~, keyCode, ~]=KbCheck;
-    if keyIsDown==1 && strcmp(KbName(keyCode),'esc')
+    [~,keyCode]=KbWait([],0,stmp+gapTime);
+%     [keyIsDown, ~, keyCode, ~]=KbCheck;
+%     if keyIsDown==1 && strcmp(KbName(keyCode),'esc')
+    % when shift key is pressed, the keycode is a cell array
+    if any(strcmp(KbName(keyCode),'esc')) %|| isempty(keyCode)
         exit=true;
         break
     end

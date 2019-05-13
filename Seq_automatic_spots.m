@@ -15,7 +15,8 @@ gapTime=5;
 % stim_contrast=c(:)';
 
 disp(['total time would be: ' num2str(repeatN* length(spotsR)*(flipSecs+gapTime)) 's'])
-%%
+
+x_axis=[];
 WaitSecs(0.15);
 exit=false;
 for j=1:repeatN
@@ -25,6 +26,7 @@ for j=1:repeatN
         if exit
             break
         end
+        x_axis=[x_axis spotsR(i)];
     end
     if exit
         break

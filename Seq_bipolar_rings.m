@@ -27,13 +27,15 @@ flipSecs= [1];
 if length(flipSecs)==1
     flipSecs=ones(size(ringsOR))*flipSecs;
 end
-
+sendComment(['bipolar_rings, contrast=' num2str(stim_contrast)],-1);
+x_axis=[];
 for i=1:length(flipSecs)
     kbstate=kbContinue;
     if kbstate==0
         break
     else
         StimAnnulus(ringsIR(i),ringsOR(i),flipSecs(i),stim_contrast)
+        x_axis=[x_axis ringsIR(i)];
     end
 end
 

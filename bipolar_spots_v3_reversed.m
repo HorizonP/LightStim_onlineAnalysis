@@ -1,9 +1,7 @@
 spotsR=[12.5 25 50 100 150 300 600]; % in um, not pixel
 spotsR=fliplr(spotsR)
 
-% for online data analysis
-global x_axis
-x_axis=spotsR;
+x_axis=[];
 
 stim_contrast=1;
 flipSec = 3;
@@ -17,7 +15,7 @@ for i=1:length(spotsR)
     else
         
         StimSpot(spotsR(i),flipSec,stim_contrast)
-        
+        x_axis=[x_axis spotsR(i)];
     end
 end
 

@@ -26,6 +26,7 @@ classdef LCAnalysis < handle
     end
     properties (Hidden)
         %param
+        tickrate_raw %to store original tickrate if decimated
         bl_polypara % polynomial fit parameter of baseline
         stim_name_verbose % store the whole string of stim part from interpreted filename
     end
@@ -39,6 +40,7 @@ classdef LCAnalysis < handle
             
             %=== default values
             TTL_chan_number=5;
+            decimation=5;
             %===
             
             if isempty(varargin) % use gLCDoc
@@ -59,7 +61,12 @@ classdef LCAnalysis < handle
             assert(length(unique(arrayfun(lcTick,blocks)))==1,'tickrate for each block is different')
             
             obj.tickrate=round(1/lcTick(LCDoc_h.SelectionEndRecord)); %$ assign tickrate
-
+            obj.tickrate_raw=obj.tickrate; % backup for decimation
+            if obj.tickrate<1e4
+                decimation=1;
+                disp(['tickrate is ' num2str(obj.tickrate) ', disabled decimation'])
+            end
+            
             chan_bool=selectedChanNumber(LCDoc_h);
             if ~chan_bool(TTL_chan_number) % TTL channel isn't selected
                 LCDoc_h.SelectChannel(TTL_chan_number-1,true) % select TTL channel
@@ -68,6 +75,12 @@ classdef LCAnalysis < handle
             tmp=1:length(chan_bool); obj.selectedChans=tmp(chan_bool); %$
             
             obj.selectedData=LCDoc_h.GetSelectedData(1,-1)'; %$ return as matrix not cell array, only include channels selected
+            
+            % decimation process
+            if decimation>1
+                obj.selectedData=squeeze(mean(reshape(obj.selectedData,size(obj.selectedData,1),decimation,[]),2));
+                obj.tickrate=obj.tickrate/decimation;
+            end
             
             % set the scales and create Reschan
             ResUnit=LCDoc_h.GetUnits(obj.selectedChans(1)-1,LCDoc_h.SelectionEndRecord);
@@ -88,6 +101,19 @@ classdef LCAnalysis < handle
             if ~isempty(x_axis)
                 obj.x_axis=x_axis;
             end
+            
+            obj.selection=logSel(); %$
+            function selection=logSel()
+            selection=struct();
+            selection.selObj=LCDoc_h.SelectionObject; 
+            selection.blocks=blocks;
+%             selection.chans=selectedChans;
+            selection.startTick=LCDoc_h.SelectionStartOffset;
+            selection.endTick=LCDoc_h.SelectionEndOffset;
+            selection.startDeltaT=selection.startTick/obj.tickrate_raw;
+         
+            end
+            
 
         end
 
