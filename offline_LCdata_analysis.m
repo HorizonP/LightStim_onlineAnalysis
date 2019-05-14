@@ -13,7 +13,7 @@ LCAcoll(n).analysis_res=on;
 plot_T_Response(LCAcoll(n));
 
 %% plot_X_Response
-plot_x_y(LCAcoll.x_axis,LCAcoll.analysis_res)
+plot_X_Response(LCAcoll(n));
 
 
 
@@ -26,7 +26,7 @@ if ~exist('ax','var')||isempty(ax)
 end
 
 [x_consolidated,~,subs]=unique(x_axis);
-res_consolidated=accumarray(subs,res,[],@mean);
+res_consolidated=accumarray(subs,res(:),[],@mean);
 
 plot(ax,x_consolidated,res_consolidated,'Marker','*')
 end

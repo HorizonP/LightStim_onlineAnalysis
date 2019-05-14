@@ -9,7 +9,7 @@ flipSecs=0.5;
 
 stim_contrast=1;
 repeatN=2;
-gapTime=2;
+gapTime=2.5;
 disp(['total time would be: ' num2str(repeatN* length(spotsR)*(flipSecs+gapTime)) 's'])
 
 
@@ -30,3 +30,7 @@ for j=1:repeatN
         break
     end
 end
+
+%save workspace to log folder
+[~,scriptName,~]=fileparts(mfilename('fullpath'));
+save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'x_axis','ringsIR','ringsOR','flipSecs','stim_contrast','repeatN','gapTime');

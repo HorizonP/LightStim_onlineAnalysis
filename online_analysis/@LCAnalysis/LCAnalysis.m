@@ -116,7 +116,9 @@ classdef LCAnalysis < handle
             
 
         end
-
+%         function obj=empty(obj)
+%             obj=LCAnalysis.empty();
+%         end
         % dependent function
         function val=get.digitized_TTLchan(obj)
             val=obj.TTLchan;

@@ -4,7 +4,7 @@ spotsR=[50 150 600];
 flipSecs=2;
 % intensity=[0.75 0.45 0.85 0.5 0.95 0.55 0.4 1 0.6 0.8];
 stim_contrast=1;
-repeatN=50;
+repeatN=70;
 % gapTime=flipSecs;
 gapTime=5;
 
@@ -35,4 +35,4 @@ end
 
 %save workspace to log folder
 [~,scriptName,~]=fileparts(mfilename('fullpath'));
-save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'spotsR','flipSecs','stim_contrast','repeatN','gapTime');
+save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'x_axis','spotsR','flipSecs','stim_contrast','repeatN','gapTime');
