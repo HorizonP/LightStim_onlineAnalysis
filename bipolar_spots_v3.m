@@ -17,4 +17,4 @@ end
 
 %save workspace to log folder
 [~,scriptName,~]=fileparts(mfilename('fullpath'));
-save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'spotsR','flipSecs','stim_contrast');
+save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'x_axis','spotsR','flipSec','stim_contrast');

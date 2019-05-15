@@ -4,7 +4,7 @@ spotsR=fliplr(spotsR)
 x_axis=[];
 
 stim_contrast=1;
-flipSec = 3;
+flipSec = 1;
 
 
 sendComment(['bipolar_spots_v3_reversed, contrast=' num2str(stim_contrast)],-1);
@@ -21,4 +21,4 @@ end
 
 %save workspace to log folder
 [~,scriptName,~]=fileparts(mfilename('fullpath'));
-save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'spotsR','flipSecs','stim_contrast');
+save(fullfile('log',[scriptName datestr(datetime,'yyyymmddHHMMSS') '.mat']),'x_axis','spotsR','flipSec','stim_contrast');

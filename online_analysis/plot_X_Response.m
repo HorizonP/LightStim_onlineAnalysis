@@ -38,7 +38,7 @@ function plot_x_y(ax,x_axis,res)
         x_axis=x_axis(1:length(res));
     end
     %===
-    [x_consolidated,~,subs]=unique(x_axis);
+    [x_consolidated,~,subs]=unique(x_axis); % here the x_consolidated is sorted as well
     res_consolidated=accumarray(subs,res(:),[],@mean);
     hold(ax,'on');
     plot(ax,x_consolidated,res_consolidated,'Marker','*')
