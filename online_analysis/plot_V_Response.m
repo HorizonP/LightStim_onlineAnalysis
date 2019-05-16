@@ -1,4 +1,6 @@
-function plot_T_Response(varargin)
+function plot_V_Response(varargin)
+% assume channel #4 is the voltage channel
+
 %% interpret inputs
 lca_ind=strcmp('LCAnalysis',cellfun(@class,varargin,'UniformOutput',false));
 axes_ind=strcmp('matlab.graphics.axis.Axes',cellfun(@class,varargin,'UniformOutput',false));
@@ -19,15 +21,23 @@ end
 
 %% prepare inputs for plotXY
 
-t_axi=[];x_axi=[];y_axi=[];
+v_axi=[];x_axi=[];y_axi=[];
 if length(obj)>1
-    warning('plot_T_Response: plotting multiple LCAnalysis')
+    warning('plot_V_Response: plotting multiple LCAnalysis')
 end
 for i=1:length(obj)
-    t=obj(i).ascendT/obj(i).tickrate;
-    x=obj(i).x_axis;
-    y=obj(i).analysis_res;
+    % create TTL_stair
+    assert(any(obj(i).selectedChans==4))
+    tmp=zeros(size(obj(i).digitized_TTLchan));
+    tmp(obj(i).ascendT)=1;
+    tmpp=cumsum(tmp); % integral of tmp, create a multiple-stairs curve
+    TTL_stair=tmpp .* obj(i).digitized_TTLchan; % only if TTL==1, TTL_stair equals to some number other than 0
+
+    tmp=accumarray(TTL_stair'+1,obj(i).selectedData(obj(i).selectedChans==4,:)',[],@mean);
+    v=round(tmp(2:end)') % tmp(1) is the average of TTL_stair==0, discard
     
+    x=obj(i).x_axis;
+    y=obj(i).analysis_res;  
     if length(x)~=length(y)
         warning(['plot_T_Response: length of x_axis(' num2str(length(x)) ') does not match length of y_axis(' num2str(length(y)) '), modified x_axis to accommodate y_axis'])
         % if len(x)>len(y), rep=1, the following expression still valid
@@ -35,7 +45,8 @@ for i=1:length(obj)
         x=repmat(x,rep,1);
         x=x(1:length(y));
     end
-    t_axi=[t_axi t(:)'];
+    
+    v_axi=[v_axi v(:)'];
     x_axi=[x_axi x(:)'];
     y_axi=[y_axi y(:)'];
 end
@@ -50,35 +61,12 @@ end
 
 % the method of adding legend here is error-prone for plotting on existing
 % axes
-plotXY(ax,t_axi,y_axi,x_axi);
+plotXY(ax,v_axi,y_axi,x_axi);
 p_lines=ax.Children;
 for i=1:length(p_lines)
     p_lines(i).DisplayName=['x=' num2str(p_lines(i).UserData)];
 end
 legend(ax);
 
-%%
-function plot_t_res(ax,t,x,y)
-    t=t(:);x=x(:);y=y(:);
-    
-    %=== exceptions handling
-    assert(length(t)==length(y),['plot_T_Response: length of t_axis(' num2str(length(t)) ')  does not match length of y_axis(' num2str(length(y)) ')'] )
-    if length(x)~=length(y)
-        warning(['plot_T_Response: length of x_axis(' num2str(length(x)) ') does not match length of y_axis(' num2str(length(y)) '), modified x_axis to accommodate y_axis'])
-        % if len(x)>len(y), rep=1, the following expression still valid
-        rep=idivide(int16(length(y)),int16(length(x)),'ceil');
-        x=repmat(x,rep,1);
-        x=x(1:length(y));
-    end
-    %===
-    
-    [uni,~,subs]=unique(x);
-    hold(ax,'on');
-    for i=1:length(uni)
-        plot(ax,t(subs==i),y(subs==i),...
-            'DisplayName',['x=' num2str(uni(i))],'Marker','o')
 
-    end
-    legend 
-end
 end
