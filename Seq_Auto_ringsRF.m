@@ -5,11 +5,11 @@ order=randperm(length(ringsOR))
 ringsOR=ringsOR(order);
 ringsIR=ringsIR(order);
 
-flipSecs=0.5;
+flipSecs=1;
 
 stim_contrast=1;
 repeatN=2;
-gapTime=2.5;
+gapTime=3.5;
 disp(['total time would be: ' num2str(repeatN* length(spotsR)*(flipSecs+gapTime)) 's'])
 
 

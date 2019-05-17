@@ -40,9 +40,10 @@ classdef LCAnalysis < handle
             
             %=== default values
             TTL_chan_number=5;
-            decimation=5;
+            decimation=5; % if obj.tickrate<1e4, decimation=1
             %===
             
+            %=== input interpret
             if isempty(varargin) % use gLCDoc
                 global gLCDoc
                 if ~gLCDoc.isinterface
@@ -54,7 +55,9 @@ classdef LCAnalysis < handle
                 LCDoc_h=varargin{1};
             end
             obj.LCDoc_h=LCDoc_h; %$ save reference to the LCDoc
+            %===
             
+            %=== set tickrate
             % check if tickrate is the same
             blocks=LCDoc_h.SelectionStartRecord : LCDoc_h.SelectionEndRecord;
             lcTick=@LCDoc_h.GetRecordSecsPerTick;
@@ -66,16 +69,19 @@ classdef LCAnalysis < handle
                 decimation=1;
                 disp(['tickrate is ' num2str(obj.tickrate) ', disabled decimation'])
             end
+            %===
             
+            %=== select TTL channel as well if not selected
             chan_bool=selectedChanNumber(LCDoc_h);
             if ~chan_bool(TTL_chan_number) % TTL channel isn't selected
                 LCDoc_h.SelectChannel(TTL_chan_number-1,true) % select TTL channel
                 chan_bool=selectedChanNumber(LCDoc_h);
             end
             tmp=1:length(chan_bool); obj.selectedChans=tmp(chan_bool); %$
+            %===
             
-            obj.selectedData=LCDoc_h.GetSelectedData(1,-1)'; %$ return as matrix not cell array, only include channels selected
-            
+            %=== data process (decimation, scale)
+            obj.selectedData=LCDoc_h.GetSelectedData(1,-1)'; %$ return as matrix not cell array, only include channels selected       
             % decimation process
             if decimation>1
                 obj.selectedData=squeeze(mean(reshape(obj.selectedData,size(obj.selectedData,1),decimation,[]),2));
@@ -96,29 +102,24 @@ classdef LCAnalysis < handle
 %             end
             obj.Reschan=obj.selectedData(1,:);
             obj.TTLchan=obj.selectedData(obj.selectedChans==TTL_chan_number,:); %$
+            %===
             
-            global x_axis
-            if ~isempty(x_axis)
-                obj.x_axis=x_axis;
-            end
             
-            obj.selection=logSel(); %$
-            function selection=logSel()
-            selection=struct();
-            selection.selObj=LCDoc_h.SelectionObject; 
-            selection.blocks=blocks;
-%             selection.chans=selectedChans;
-            selection.startTick=LCDoc_h.SelectionStartOffset;
-            selection.endTick=LCDoc_h.SelectionEndOffset;
-            selection.startDeltaT=selection.startTick/obj.tickrate_raw;
-         
-            end
+            %=== set x_axis
+%             global x_axis
+%             if ~isempty(x_axis)
+%                 obj.x_axis=x_axis;
+%             end
+            obj.setXFromDatapad();
+            %===
+            
+            %=== get basic info of selection
+            obj.selection=selectionInfo(LCDoc_h);
+            %===
             
 
         end
-%         function obj=empty(obj)
-%             obj=LCAnalysis.empty();
-%         end
+
         % dependent function
         function val=get.digitized_TTLchan(obj)
             val=obj.TTLchan;
@@ -132,6 +133,22 @@ classdef LCAnalysis < handle
         end
         function val=get.descendT(obj)
             val=find(obj.digitized_TTLchan==1&[obj.digitized_TTLchan(2:end) 0]==0);
+        end
+        
+        function setXFromDatapad(obj)
+            doc=obj.LCDoc_h;
+            col=5; % the column number in labchart datapad
+            assert(strcmp('Extract Numbers in Comment Text',doc.GetDataPadColumnFuncName(col)));
+            getVal=@(row) doc.GetDataPadValue(1,row,col);
+            
+            row_offset=4; % first data in datapad is in row #5
+            obj.x_axis=arrayfun(getVal,[1:length(obj.ascendT)]+row_offset); 
+            if any(isnan(obj.x_axis))
+                warning('x_axis set from Datapad has problem')
+            end
+        end
+        function resetSelection(obj)
+            setSelection(obj.LCDoc_h,obj.selection);
         end
 
         

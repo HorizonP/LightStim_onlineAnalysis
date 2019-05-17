@@ -1,12 +1,12 @@
 spotsR=[12.5 25 50 100 150 300 600 75 125 200 250 400 500 800];
 spotsR=spotsR(randperm(length(spotsR)))
 % spotsR=[100 100 150 200:100:800 100 50]
-flipSecs=0.5;
+flipSecs=1;
 % intensity=[0.75 0.45 0.85 0.5 0.95 0.55 0.4 1 0.6 0.8];
 stim_contrast=1;
 repeatN=2;
 % gapTime=flipSecs;
-gapTime=2.5;
+gapTime=3.5;
 
 %% ===============Routine===============
 % [a,b,c]=meshgrid(spotsR,flipSecs,stim_contrast);
