@@ -26,6 +26,8 @@ vbl = Screen('Flip', screen_win);
 io64(ttlObj,57600,1);
 % to display information to console
 intensity_length_height_posX_posY_flipSec=[stim_contrast,length_height_posX_posY,flipSecs]
+comment=['(auto) Rectangle: x-width, y-width, Xoffset, Yoffset=' num2str(l_h(1)) ', ' num2str(l_h(2)) ', ' num2str(posX) ', ' num2str(posY) ', contrast=' num2str(stim_contrast)];
+sendComment(comment, 4)
 if exist('options','var') && length(options)>=2 && options(2)==1
     %=== gapless
     Screen('drawTexture',screen_win,screen_win_off)

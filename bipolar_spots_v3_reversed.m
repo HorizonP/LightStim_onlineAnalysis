@@ -4,7 +4,7 @@ spotsR=fliplr(spotsR)
 x_axis=[];
 
 stim_contrast=1;
-flipSec = 1;
+flipSec = 3;
 
 
 sendComment(['bipolar_spots_v3_reversed, contrast=' num2str(stim_contrast)],-1);

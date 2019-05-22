@@ -46,11 +46,13 @@ classdef LCAnalysis < handle
             %=== input interpret
             if isempty(varargin) % use gLCDoc
                 global gLCDoc
-                if ~gLCDoc.isinterface
-                    restartLC();
-                end
                 LCDoc_h=gLCDoc;
-                display(['LCAnalysis: ' LCDoc_h.Name])
+                try
+                    display(['LCAnalysis: ' LCDoc_h.Name])
+                catch me
+                    restartLC();
+                    LCDoc_h=gLCDoc;
+                end
             else
                 LCDoc_h=varargin{1};
             end
@@ -117,6 +119,7 @@ classdef LCAnalysis < handle
             obj.selection=selectionInfo(LCDoc_h);
             %===
             
+
 
         end
 

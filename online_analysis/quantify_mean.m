@@ -6,6 +6,7 @@ function [on_mean,off_mean] = quantify_mean(obj,varargin)
     %default
     delay=0.05; 
     bool_offset_immediate_baseline=true;
+    imbl=[-0.08 0.02];
     bool_manual_ON_duration=false;
     bool_manual_OFF_duration=false;
     sign_reverse=false;
@@ -22,6 +23,9 @@ function [on_mean,off_mean] = quantify_mean(obj,varargin)
         end
         if isfield(opts,'offset_immediate_baseline')
             bool_offset_immediate_baseline=opts.offset_immediate_baseline;
+        end
+        if isfield(opts,'immediate_baseline')&& ~isempty(opts.immediate_baseline)
+            imbl=opts.immediate_baseline;
         end
         if isfield(opts,'sign_reverse')
             sign_reverse=opts.sign_reverse;
@@ -45,7 +49,7 @@ function [on_mean,off_mean] = quantify_mean(obj,varargin)
         off_mean=[off_mean mean(obj.Reschan(ind_mat(i,3):ind_mat(i,4)))];
     end
     if bool_offset_immediate_baseline
-        immed_base_ind=obj.ascendT'+(-0.08*obj.tickrate:0.02*obj.tickrate); 
+        immed_base_ind=obj.ascendT'+(imbl(1)*obj.tickrate:imbl(2)*obj.tickrate); 
         immed_base=mean(obj.Reschan(immed_base_ind),2)';
         on_mean=on_mean-immed_base;
         off_mean=off_mean-immed_base;

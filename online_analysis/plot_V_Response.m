@@ -27,14 +27,16 @@ if length(obj)>1
 end
 for i=1:length(obj)
     % create TTL_stair
-    assert(any(obj(i).selectedChans==4))
+    assert(any(obj(i).selectedChans==4),'did not select voltage channel data')
     tmp=zeros(size(obj(i).digitized_TTLchan));
     tmp(obj(i).ascendT)=1;
-    tmpp=cumsum(tmp); % integral of tmp, create a multiple-stairs curve
+    tmpp=cumsum(tmp); % integral of tmp, create a multiple-stairs curve for the TTL channel
     TTL_stair=tmpp .* obj(i).digitized_TTLchan; % only if TTL==1, TTL_stair equals to some number other than 0
-
-    tmp=accumarray(TTL_stair'+1,obj(i).selectedData(obj(i).selectedChans==4,:)',[],@mean);
-    v=round(tmp(2:end)') % tmp(1) is the average of TTL_stair==0, discard
+    
+    subs=TTL_stair'+1;
+    vals=obj(i).selectedData(obj(i).selectedChans==4,:)'; % the voltage channel
+    tmp=accumarray(subs,vals,[],@mean); % the mean voltage for each TTL high region, ordered by occurence (time)
+    v=round(tmp(2:end)'); % a list of voltage for each TTL high region, tmp(1) is the average of voltage(TTL_stair==0), discard
     
     x=obj(i).x_axis;
     y=obj(i).analysis_res;  

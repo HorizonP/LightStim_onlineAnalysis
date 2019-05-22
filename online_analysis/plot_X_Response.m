@@ -39,7 +39,7 @@ end
 %% call plotXY
 plotXY(ax,x_axi,y_axi,zeros(size(x_axi)));
 % plot_x_y(ax,x_axi,y_axi);
-
+ax.XAxisLocation = 'origin';
 
 %%
 function plot_x_y(ax,x_axis,res)

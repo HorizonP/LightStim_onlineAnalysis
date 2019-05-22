@@ -1,14 +1,12 @@
 
-ringsOR=[25 50 100 150 200 250 300 350 400 450 500]; %um
-ringsIR=[ 0 25  50 100 150 200 250 300 350 400 450]; %um
-order=randperm(length(ringsOR))
-ringsOR=ringsOR(order);
-ringsIR=ringsIR(order);
+ringsOR=[12.5 50 150 600 600]; %um
+ringsIR=[   0  0   0   0 200]; %um
+
 
 flipSecs=1;
 
 stim_contrast=1;
-repeatN=2;
+repeatN=70;
 gapTime=5;
 disp(['total time would be: ' num2str(repeatN* length(spotsR)*(flipSecs+gapTime)) 's'])
 
@@ -18,8 +16,12 @@ x_axis=[];
 WaitSecs(0.15);
 exit=false;
 for j=1:repeatN
-    for i=1:length(ringsOR)         
-        StimAnnulus(ringsIR(i),ringsOR(i),flipSecs,stim_contrast);
+    for i=1:length(ringsOR)
+        if ringsIR(i)==0
+            StimSpot(ringsOR(i),flipSecs,stim_contrast);
+        else
+            StimAnnulus(ringsIR(i),ringsOR(i),flipSecs,stim_contrast);
+        end
         exit=GapTime(gapTime);
         if exit
             break

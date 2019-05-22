@@ -27,7 +27,7 @@ io64(ttlObj,57600,1);
 % to display information to console
 intensity_IR_OR_flipSec=[stim_contrast,ringIR,ringOR,flipSec] 
 % to send comment to LabChart
-sendComment(['(auto) Annulus: r=(' num2str(ringIR) ',' num2str(ringOR) ')(um), contrast=' num2str(stim_contrast)],4)
+sendComment(['(auto) Annulus: r=(' num2str(ringIR) ',' num2str(ringOR) ')(um), contrast=' num2str(stim_contrast)],4,{num2str(ringIR)})
 %===
 if exist('options','var') && length(options)>=2 && options(2)==1
     %=== gapless
