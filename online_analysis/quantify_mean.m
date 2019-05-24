@@ -34,6 +34,8 @@ function [on_mean,off_mean] = quantify_mean(obj,varargin)
     
     delay_Tn=round(delay*obj.tickrate);
     ind_mat=[obj.ascendT(:), obj.descendT(:), obj.descendT(:)+1, 2*obj.descendT(:)-obj.ascendT(:)+1] +delay_Tn;
+    % ind_mat is a matrix contains row of each stimulus and 4 columns for
+    % ON onset, ON offset, OFF onset, OFF offset
     if bool_manual_ON_duration
         ON_duration_Tn=round(opts.ON_duration * obj.tickrate);
         ind_mat(:,2)=obj.ascendT(:)+ON_duration_Tn;
@@ -43,14 +45,21 @@ function [on_mean,off_mean] = quantify_mean(obj,varargin)
         ind_mat(:,4)=obj.ascendT(:)+OFF_duration_Tn;
     end
     
+    
+    data=obj.Reschan;
+    if ind_mat(end,4)>length(data)
+        warning('the data is shorter than quantification requirement, appended additional NaN to data')
+        len=length(data);
+        data(len+1:ind_mat(end,4))=nan;
+    end
     on_mean=[];off_mean=[];
     for i=1:length(obj.ascendT(:))
-        on_mean=[on_mean mean(obj.Reschan(ind_mat(i,1):ind_mat(i,2)))];
-        off_mean=[off_mean mean(obj.Reschan(ind_mat(i,3):ind_mat(i,4)))];
+        on_mean=[on_mean mean(data(ind_mat(i,1):ind_mat(i,2)))];
+        off_mean=[off_mean mean(data(ind_mat(i,3):ind_mat(i,4)))];
     end
     if bool_offset_immediate_baseline
         immed_base_ind=obj.ascendT'+(imbl(1)*obj.tickrate:imbl(2)*obj.tickrate); 
-        immed_base=mean(obj.Reschan(immed_base_ind),2)';
+        immed_base=mean(data(immed_base_ind),2)';
         on_mean=on_mean-immed_base;
         off_mean=off_mean-immed_base;
     end

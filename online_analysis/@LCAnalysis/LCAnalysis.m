@@ -45,14 +45,7 @@ classdef LCAnalysis < handle
             
             %=== input interpret
             if isempty(varargin) % use gLCDoc
-                global gLCDoc
-                LCDoc_h=gLCDoc;
-                try
-                    display(['LCAnalysis: ' LCDoc_h.Name])
-                catch me
-                    restartLC();
-                    LCDoc_h=gLCDoc;
-                end
+                LCDoc_h=RunningLCDoc();
             else
                 LCDoc_h=varargin{1};
             end

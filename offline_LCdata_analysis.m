@@ -6,12 +6,12 @@ LCAcoll(end)
 n=length(LCAcoll)
 % n=4
 quant_opts=[];
-quant_opts.delay=0.08;  %0.05;
+quant_opts.delay=0.1;  %0.05;
 quant_opts.sign_reverse=false;
 quant_opts.immediate_baseline=[-0.4 0.1];
 [on,off]=quantify_mean(LCAcoll(n),quant_opts);
-LCAcoll(n).analysis_res=on;
-% LCAcoll(n).analysis_res=off;
+% LCAcoll(n).analysis_res=on;
+LCAcoll(n).analysis_res=off;
 %% plot_T_Response
 plot_T_Response(LCAcoll(n));
 %% plot_X_Response
@@ -22,15 +22,5 @@ plot_V_Response(LCAcoll(n));
 
 
 %%
-function plot_x_y(x_axis,res,ax)
-if ~exist('ax','var')||isempty(ax)
-    f=figure;
-    ax=axes(f);
-end
-
-[x_consolidated,~,subs]=unique(x_axis);
-res_consolidated=accumarray(subs,res(:),[],@mean);
-
-plot(ax,x_consolidated,res_consolidated,'Marker','*')
-end
+LCAcoll=LCAnalysis.empty();
 
