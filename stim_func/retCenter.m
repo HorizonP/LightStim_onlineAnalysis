@@ -1,4 +1,4 @@
 function [xCen,yCen]=retCenter()
-xCen=881;
-yCen=529;
+xCen=870;
+yCen=519;
 end
