@@ -1,4 +1,8 @@
 function [xCen,yCen]=retCenter()
-xCen=870;
-yCen=519;
+% the center position on my setup
+% xCen=862;
+% yCen=522;
+
+xCen=862;
+yCen=522;
 end

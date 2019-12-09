@@ -1,11 +1,11 @@
-function StimRectangle(length_height_posX_posY,flipSecs,stim_contrast,options)
+function StimRectangle(xWidth_yWidth_posX_posY,flipSecs,stim_contrast,options)
 % generate Rectangle for precise duration, but not for precise onset timing
 global param_screen
 struct2vars(param_screen);
 
-l_h=length_height_posX_posY(1:2)*umTopix;
-posX=length_height_posX_posY(3)*umTopix;
-posY=length_height_posX_posY(4)*umTopix;
+l_h=xWidth_yWidth_posX_posY(1:2)*umTopix;
+posX=xWidth_yWidth_posX_posY(3)*umTopix;
+posY=xWidth_yWidth_posX_posY(4)*umTopix;
 
 rect=[0 0 l_h];
 waitframe = round(flipSecs / ifi);
@@ -25,7 +25,7 @@ Screen('CopyWindow',screen_win,screen_win_off); % for gapless
 vbl = Screen('Flip', screen_win);
 io64(ttlObj,57600,1);
 % to display information to console
-intensity_length_height_posX_posY_flipSec=[stim_contrast,length_height_posX_posY,flipSecs]
+intensity_length_height_posX_posY_flipSec=[stim_contrast,xWidth_yWidth_posX_posY,flipSecs]
 comment=['(auto) Rectangle: x-width, y-width, Xoffset, Yoffset=' num2str(l_h(1)) ', ' num2str(l_h(2)) ', ' num2str(posX) ', ' num2str(posY) ', contrast=' num2str(stim_contrast)];
 sendComment(comment, 4)
 if exist('options','var') && length(options)>=2 && options(2)==1

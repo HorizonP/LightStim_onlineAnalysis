@@ -4,10 +4,10 @@ setup_screen(0.3);
 sca
 
 %% adptation version of flickering stim
-r=50; f=2;
+r=300; f=1;
 adpt_contrast=0.5;
 adpt_time=5;
-flicker_t=10;
+flicker_t=15;
 % StimSpot(r,adpt_time,adpt_contrast,[0 1])
 StimSineModulatedSpot(r, flicker_t, f)
 %% flickering stim

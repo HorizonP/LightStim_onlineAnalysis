@@ -1,7 +1,6 @@
 function StimUntimedSpot(spotR,stim_contrast,dx_pix,dy_pix)
 global param_screen
 struct2vars(param_screen)
-
 spotDiaPix=spotR*2*umTopix;
 rect=[0 0 spotDiaPix spotDiaPix];
 intensity=screen_w*stim_contrast;

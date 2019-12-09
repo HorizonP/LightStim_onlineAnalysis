@@ -1,10 +1,10 @@
 spotsR=[12.5 25 50 100 150 300 600 75 125 200 250 400 500 800];
-spotsR=spotsR(randperm(length(spotsR)))
+
 % spotsR=[100 100 150 200:100:800 100 50]
 flipSecs=1;
 % intensity=[0.75 0.45 0.85 0.5 0.95 0.55 0.4 1 0.6 0.8];
 stim_contrast=1;
-repeatN=2;
+repeatN=1;
 % gapTime=flipSecs;
 gapTime=5;
 
@@ -19,6 +19,7 @@ x_axis=[];
 WaitSecs(0.15);
 exit=false;
 for j=1:repeatN
+    spotsR=spotsR(randperm(length(spotsR))); % randomize the order of presenting
     for i=1:length(spotsR)         
         StimSpot(spotsR(i),flipSecs,stim_contrast);
         exit=GapTime(gapTime);
