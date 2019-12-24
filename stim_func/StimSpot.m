@@ -1,5 +1,6 @@
 function StimSpot(spotR,flipSecs,stim_contrast,options)
 % generate spot for precise duration, but not for precise onset timing
+% options=[true(wait_for_key_to_onset), true(gapless_at_offset), true(do_not_send_comment_to_Labchart)] 
 global param_screen
 struct2vars(param_screen)
 
@@ -26,8 +27,12 @@ io64(ttlObj,57600,1);
 % to display information to console
 intensity_spotR_flipSec=[stim_contrast,spotR,flipSecs]
 % to send comment to LabChart
-sendComment(['(auto) Spot: r=' num2str(spotR) 'um, contrast=' num2str(stim_contrast)],4,{num2str(spotR)})
-% parfeval(@sendComment,0,['(auto) Spot: r=' num2str(spotR) 'um, contrast=' num2str(stim_contrast)],4);
+if exist('options','var') && length(options)>=3 && options(3)==1
+    % don't send comment
+else
+    sendComment(['(auto) Spot: r=' num2str(spotR) 'um, contrast=' num2str(stim_contrast)],4,{num2str(spotR)})
+end
+    % parfeval(@sendComment,0,['(auto) Spot: r=' num2str(spotR) 'um, contrast=' num2str(stim_contrast)],4);
 %===
 
 if exist('options','var') && length(options)>=2 && options(2)==1
